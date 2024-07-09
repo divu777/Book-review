@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const ProfileSchema = new mongoose.Schema({
   location: {
@@ -24,7 +24,8 @@ const ProfileSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Types.ObjectId,
     ref: "User",
+    required: true,
   },
 });
 
-export const Profile = new mongoose.model("Profile", ProfileSchema);
+export const Profile = mongoose.model("Profile", ProfileSchema);

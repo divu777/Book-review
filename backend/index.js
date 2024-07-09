@@ -5,9 +5,8 @@ import bookRoute from "./routes/bookRoute.js";
 import "dotenv/config";
 import connectDB from "./db/db.js";
 const app = e();
-
-app.use(e.json());
 app.use(cors());
+app.use(e.json());
 
 connectDB();
 
