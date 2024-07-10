@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "./Header";
 
 const Info: React.FC = () => {
   const [location, setLocation] = useState("");
@@ -70,6 +71,7 @@ const Info: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <Header />
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Additional Information

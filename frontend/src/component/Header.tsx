@@ -1,32 +1,75 @@
-import { NavLink } from "react-router-dom";
-import logo from "../assets/logo.png";
+import { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
-  return (
-    <div className=" ">
-      <ul className="flex w-full justify-between items-center">
-        <li className="w-1/4">
-          <NavLink to={"/"}>
-            <img src={logo} className=" w-28 h-28" />
-          </NavLink>
-        </li>
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-        <div className="flex justify-evenly w-2/4 font-semibold text-xl">
-          <NavLink to={"/books"}>
-            <li>Books</li>
-          </NavLink>
-          <NavLink to={"/dashboard"}>
-            <li>DashBoard</li>
-          </NavLink>
-          <NavLink to={"/login"}>
-            <li>Login</li>
-          </NavLink>
-          <NavLink to={"/signup"}>
-            <li>Sign Up</li>
-          </NavLink>
+  useEffect(() => {
+    const checkToken = () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkToken();
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/");
+  };
+
+  return (
+    <header className="bg-white shadow-md py-4">
+      <div className="container mx-auto flex justify-between items-center">
+        <div className="text-2xl font-bold text-gray-800">
+          <NavLink to="/">On.Book</NavLink>
         </div>
-      </ul>
-    </div>
+        <nav className="flex space-x-6 text-lg font-medium">
+          <NavLink to="/" className="nav-link">
+            Books
+          </NavLink>
+          <NavLink to="/" className="nav-link">
+            Categories
+          </NavLink>
+          <NavLink to="/" className="nav-link">
+            Wishlist
+          </NavLink>
+          <NavLink to="/" className="nav-link">
+            Blog
+          </NavLink>
+          <NavLink to="/" className="nav-link">
+            About Us
+          </NavLink>
+        </nav>
+        <div className="flex space-x-6 text-lg font-medium">
+          {isLoggedIn ? (
+            <>
+              <NavLink to="/dashboard" className="nav-link">
+                Dashboard
+              </NavLink>
+              <button onClick={handleLogout} className="nav-link">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink to="/login" className="nav-link">
+                Login
+              </NavLink>
+              <NavLink to="/signup" className="nav-link">
+                Sign Up
+              </NavLink>
+            </>
+          )}
+        </div>
+      </div>
+    </header>
   );
 };
 

@@ -6,7 +6,8 @@ import { User } from "../model/userSchema.js";
 const router = e.Router();
 
 //getting all book
-router.get("/", authenticateToken, async (req, res) => {
+router.get("/books", authenticateToken, async (req, res) => {
+  console.log("herlllo");
   try {
     const books = await Book.find({});
     res.status(200).json({
@@ -72,7 +73,7 @@ router.post("/:bookId/reviews", authenticateToken, async (req, res) => {
   const { rating, review } = req.body;
 
   try {
-    const book = await Book.findbyId(bookId);
+    const book = await Book.findById(bookId);
     if (!book) {
       res.status(404).json({
         message: "Book not found",

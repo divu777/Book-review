@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useRef, ChangeEvent, FormEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Header from "./Header";
 
 const Otp: React.FC = () => {
   const location = useLocation();
@@ -18,7 +19,6 @@ const Otp: React.FC = () => {
       return newOtp;
     });
 
-    // Focus next input
     if (element.value !== "") {
       if (index < 5) {
         inputRefs.current[index + 1]?.focus();
@@ -42,7 +42,7 @@ const Otp: React.FC = () => {
           alert("OTP verified successfully. User registered.");
           const { token } = response.data;
           localStorage.setItem("token", token);
-          navigate("/dashboard"); // Redirect on successful verification
+          navigate("/dashboard");
         } else {
           alert("Invalid OTP. User registration cancelled.");
         }
@@ -73,19 +73,19 @@ const Otp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Verify your OTP
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          We've sent a 6-digit code to your email
-        </p>
-      </div>
+    <div className="min-h-screen bg-gray-100 flex flex-col">
+      <Header />
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+      <div className="flex-grow flex justify-center items-center">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 w-full sm:max-w-md">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Verify your OTP
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            We've sent a 6-digit code to your email
+          </p>
+
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="flex justify-center space-x-4">
               {otp.map((data, index) => (
                 <input

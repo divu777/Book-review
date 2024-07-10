@@ -7,6 +7,7 @@ import Login from "./component/Login";
 import Dashboard from "./component/Dashboard";
 import Otp from "./component/Otp";
 import Info from "./component/Info";
+import Book from "./component/Book";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/otp" element={<Otp />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/info" element={<Info />} />
+        <Route path="/book/:bookId" element={<Book />} />
       </Routes>
     </BrowserRouter>
   );
